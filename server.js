@@ -16,6 +16,21 @@ quotesRouter.get("/random", (req, res, next)=>{
     res.send(obj);
 });
 
+quotesRouter.get("/", (req, res, next)=>{
+    
+    const query = req.query;
+
+    const respond = {};
+    if(Object.keys(query) == 0){
+        respond.quotes = quotes;
+    } else if('person' in query){
+        respond.quotes = quotes.filter((obj)=>{
+            return obj.person == query.person;
+        });
+    }
+    res.send(respond);
+});
+
 app.use('/api/quotes',quotesRouter);
 
 app.listen(PORT, ()=>{
