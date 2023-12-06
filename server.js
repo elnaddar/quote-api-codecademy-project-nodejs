@@ -31,6 +31,20 @@ quotesRouter.get("/", (req, res, next)=>{
     res.send(respond);
 });
 
+quotesRouter.post("/", (req, res, next)=>{
+    const query = req.query;
+    if(query.person && query.quote){
+        const obj = {
+            quote: query.quote,
+            person: query.person        
+        }
+        quotes.push(obj);
+        res.status(201).send({quote: obj});
+    } else{
+        res.status(400).send();
+    }
+})
+
 app.use('/api/quotes',quotesRouter);
 
 app.listen(PORT, ()=>{
