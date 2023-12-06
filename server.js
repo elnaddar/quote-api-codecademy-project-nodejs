@@ -9,6 +9,13 @@ const quotesRouter = express.Router();
 
 app.use(express.static('public'));
 
+quotesRouter.get("/random", (req, res, next)=>{
+    const obj = {
+        quote: getRandomElement(quotes)
+    };
+    res.send(obj);
+});
+
 app.use('/api/quotes',quotesRouter);
 
 app.listen(PORT, ()=>{
